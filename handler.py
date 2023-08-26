@@ -6,3 +6,9 @@ class math_functions:
         
         def add_integers(self) -> int:
                 return self.integer1 + self.integer2
+        
+        def sub_integers(self) -> int:
+                return self.integer1 - self.integer2
+        
+        def multiply_integers(self) -> int:
+                return self.integer1 * self.integer2
