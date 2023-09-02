@@ -5,7 +5,5 @@ import pytest
 def test_math_functions():
 
     return math_functions(
-        integer1=1,
-        integer2=1,
         file_path="data/aerodata.csv"
     )
