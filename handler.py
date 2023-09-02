@@ -16,6 +16,8 @@ class math_functions:
                 self.CHASSIS_ANGLE_MIN: Final = -1.8131
                 self.CHASSIS_ANGLE_MAX: Final = 0.8076
                 self.folder = "2024V3\\"
+                self.num_angles = 36
+                self.num_heaves = 36
                 self.aeromap_df = pd.DataFrame(pd.read_csv(self.file_path, delimiter=','))
 
         
@@ -30,32 +32,36 @@ class math_functions:
 
                 return df
         
-        def calculate_ride_height_combinations(self) -> int:
+        def calculate_ride_height_combinations(self, j) -> float:
+                
+                heave_increment = (self.HEAVE_MAX + abs(self.HEAVE_MIN)) / (self.num_heaves - 1)
+                angle_increment = (self.CHASSIS_ANGLE_MAX + abs(self.CHASSIS_ANGLE_MIN)) / (self.num_angles - 1)
+        
+                chassis_heave = np.round(-0.1429, 5)
+                chassis_angle = np.round(self.CHASSIS_ANGLE_MIN + (j * angle_increment), 5)
+                front_ride_height = 4.88 + (chassis_heave - 49.50) * np.sin(chassis_angle * (np.pi / 180))
+                rear_ride_height = 5.55 + (chassis_heave + 46.04) * np.sin(chassis_angle * (np.pi / 180))
+
+                return chassis_heave, chassis_angle, front_ride_height, rear_ride_height
+                
+        
+        def display_ride_height_combinations(self) -> int:
                 ride_height_combinations = pd.DataFrame(columns=["Chassis Heave", "Chassis Angle", "Front Ride Height", "Rear Ride Height"])
-                num_heaves = 36
-                num_angles = 36
-                heave_increment = (self.HEAVE_MAX + abs(self.HEAVE_MIN)) / (num_heaves - 1)
-                angle_increment = (self.CHASSIS_ANGLE_MAX + abs(self.CHASSIS_ANGLE_MIN)) / (num_angles - 1)
                 iteration = 0
                 for i in range(0, 1):
-                        for j in range(0, num_angles):
-                                #chassis_heave = np.round(self.HEAVE_MIN + (i * heave_increment), 5)
-                                chassis_heave = np.round(-0.1429, 5)
-                                chassis_angle = np.round(self.CHASSIS_ANGLE_MIN + (j * angle_increment), 5)
-                                front_ride_height = 4.88 + (chassis_heave - 49.50) * np.sin(chassis_angle * (np.pi / 180))
-                                read_ride_height = 5.55 + (chassis_heave + 46.04) * np.sin(chassis_angle * (np.pi / 180))
+                        for j in range(0, self.num_angles):
+                                chassis_heave, chassis_angle, front_ride_height, rear_ride_height = self.calculate_ride_height_combinations(j)
                                 ride_height_combinations.loc[iteration, "Chassis Heave"] = chassis_heave
                                 ride_height_combinations.loc[iteration, "Chassis Angle"] = chassis_angle
                                 ride_height_combinations.loc[iteration, "Front Ride Height"] = front_ride_height
-                                ride_height_combinations.loc[iteration, "Rear Ride Height"] = read_ride_height
+                                ride_height_combinations.loc[iteration, "Rear Ride Height"] = rear_ride_height
                                 iteration += 1
-                # print(ride_height_combinations)
+
                 fig = px.scatter(ride_height_combinations, x="Front Ride Height", y="Rear Ride Height")
                 fig.show()
                 ride_height_combinations.to_csv("Ride_Heights.csv", index=False)
 
-                return front_ride_height, read_ride_height
-
+                return None
 
 
                 

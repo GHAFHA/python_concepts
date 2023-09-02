@@ -2,10 +2,17 @@ import pytest
 
 
 def test_clean_data(test_math_functions):
-    cleaned_frame = test_math_functions.clean_data()
+    test_math_functions.clean_data()
 
 
 def test_calculate_ride_height_combinations(test_math_functions):
-    front_height, rear_height = test_math_functions.calculate_ride_height_combinations()
-    assert(front_height, int)
-    assert(rear_height, int)
+    test_math_functions.display_ride_height_combinations()
+
+
+def test_something(test_math_functions):
+    j = 0
+    chassis_heave, chassis_angle, front_ride_height, rear_ride_height = test_math_functions.calculate_ride_height_combinations(j)
+    assert isinstance(chassis_heave, float)
+    assert isinstance(chassis_angle, float)
+    assert isinstance(front_ride_height, float)
+    assert isinstance(rear_ride_height, float)
