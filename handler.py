@@ -6,7 +6,7 @@ import matplotlib
 from typing import Final
 
 # if self.data.loc[i, "Raw Downforce Mean"] == 0: then self.data.drop(i, inplace=True)
-
+#typing in a file
 class math_functions:
         
         def __init__(self, file_path: str) -> None:
@@ -45,7 +45,7 @@ class math_functions:
                 return chassis_heave, chassis_angle, front_ride_height, rear_ride_height
                 
         
-        def display_ride_height_combinations(self) -> int:
+        def display_ride_height_combinations(self) -> None:
                 ride_height_combinations = pd.DataFrame(columns=["Chassis Heave", "Chassis Angle", "Front Ride Height", "Rear Ride Height"])
                 iteration = 0
                 for i in range(0, 1):
@@ -59,9 +59,14 @@ class math_functions:
 
                 fig = px.scatter(ride_height_combinations, x="Front Ride Height", y="Rear Ride Height")
                 fig.show()
-                ride_height_combinations.to_csv("Ride_Heights.csv", index=False)
+                ride_height_combinations.to_csv("data/Ride_Heights.csv", index=False)
 
                 return None
 
+        def calc_ride_height_difference(self) -> float:
 
-                
+                df = pd.read_csv("data/Ride_Heights.csv")
+                height_difference = df['Height Difference'] = df['Front Ride Height'] - df['Rear Ride Height']
+                df.to_csv("data/Ride_Heights_Diff.csv", index=False)
+
+                return height_difference
