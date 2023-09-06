@@ -64,7 +64,7 @@ class math_functions:
                 return None
 
         def calc_ride_height_difference(self) -> float:
-
+                # comment
                 df = pd.read_csv("data/Ride_Heights.csv")
                 height_difference = df['Height Difference'] = df['Front Ride Height'] - df['Rear Ride Height']
                 df.to_csv("data/Ride_Heights_Diff.csv", index=False)
