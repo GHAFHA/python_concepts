@@ -1,0 +1,23 @@
+starting virtual enviornment: source venv/bin/activate starting virtual enviornment
+math is done only worry about plotting
+
+ride heights:
+  min value the max value mean variants 
+  front ride height vs front and rear downforce means plotted as two seperate plots
+  aero map rear ride height vs the front ride height vs mean downforce and CLA
+  ability to compare each min max and mean on a single chart
+
+yaw is side to side:
+  extra number called the sideforce (scale of how much force is being acted on the vehicle) and over turning moment (torque)
+  graph is side force vs yaw angle
+  yaw raw downforce (CLA) vs downforce
+
+cornering
+  steering angle vs downforce
+  steering angle vs cla
+  over turning moment vs side force
+  roll angle vs down force
+
+some method of applying post processing on raw data
+
+

@@ -5,8 +5,7 @@ import plotly.express as px
 import matplotlib
 from typing import Final
 
-# if self.data.loc[i, "Raw Downforce Mean"] == 0: then self.data.drop(i, inplace=True)
-#typing in a file
+
 class math_functions:
         
         def __init__(self, file_path: str) -> None:
@@ -64,9 +63,56 @@ class math_functions:
                 return None
 
         def calc_ride_height_difference(self) -> float:
-                # comment
                 df = pd.read_csv("data/Ride_Heights.csv")
                 height_difference = df['Height Difference'] = df['Front Ride Height'] - df['Rear Ride Height']
                 df.to_csv("data/Ride_Heights_Diff.csv", index=False)
 
                 return height_difference
+
+        def calculate_min_max_mean(self) -> pd.DataFrame:
+
+                df = self.aeromap_df
+                selected_columns = df[['ClA', 'Raw Downforce']]
+                
+                # Calculate the minimum, maximum, and mean values using NumPy
+                min_values = np.min(selected_columns, axis=0)
+                max_values = np.max(selected_columns, axis=0)
+                mean_values = np.mean(selected_columns, axis=0)
+
+                raw_stats = pd.DataFrame({
+                        'Minimum': min_values,
+                        'Maximum': max_values,
+                        'Mean': mean_values
+                })
+
+                raw_stats.to_csv("data/mean_max_min.csv", index=False)
+
+                return raw_stats
+
+
+        def plot_rear_front_ride_height_vs_cla(self) -> None:
+                
+                raw_stats = self.calculate_min_max_mean()
+
+                fig = px.scatter_3d(
+                raw_stats, x="front_ride_height", y="rear_ride_height", z="cla",
+                title="Front Ride Height vs. Rear Ride Height vs. CLA (3D Scatter Plot)",
+                labels={"front_ride_height": "Front Ride Height", "rear_ride_height": "Rear Ride Height", "cla": "CLA"}
+                )
+
+                fig.show()
+
+        def compare_min_max_mean(self) -> None:
+                pass
+
+        def plot_yaw_angle_vs_downforce(self) -> None:
+                pass
+
+        def plot_yaw_angle_vs_overturning_moment(self) -> None:
+                pass
+        
+        def plot_crosswind_vs_front_axle_downforce(self) -> None:
+                pass
+
+        def plot_crosswind_vs_rear_axle_downforce(self) -> None:
+                pass
