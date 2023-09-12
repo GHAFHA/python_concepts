@@ -7,7 +7,7 @@ from typing import Final
 
 
 class math_functions:
-        
+        # add 
         def __init__(self, file_path: str) -> None:
                 self.HEAVE_MIN: Final = -1.0
                 self.HEAVE_MAX: Final = 1.0
