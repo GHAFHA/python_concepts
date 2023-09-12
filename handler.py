@@ -5,7 +5,6 @@ import plotly.express as px
 import matplotlib
 from typing import Final
 
-
 class plot_functions:
         # add 
         def __init__(self, file_path1: str, file_path2: str) -> None:
@@ -32,7 +31,7 @@ class plot_functions:
                 df.dropna(inplace=True)
 
                 return df
-        
+              
         def calculate_ride_height_combinations(self, j) -> float:
                 
                 heave_increment = (self.HEAVE_MAX + abs(self.HEAVE_MIN)) / (self.num_heaves - 1)
