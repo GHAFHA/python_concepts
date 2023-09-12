@@ -17,13 +17,13 @@ def test_ride_height_combinations(test_math_functions):
     assert isinstance(front_ride_height, float)
     assert isinstance(rear_ride_height, float)
 
-
-def test_ride_height_diff(test_math_functions):
-    difference = test_math_functions.calc_ride_height_difference()
-    assert isinstance(difference, float)
-
 def test_calculate_min_max_mean(test_math_functions):
     difference = test_math_functions.calculate_min_max_mean()
 
-def test_plot_rear_front_ride_height_vs_cla(test_math_functions):
-    difference = test_math_functions.plot_rear_front_ride_height_vs_cla()
+
+def test_plot_yaw_angle_vs_downforce(test_math_functions):
+    difference = test_math_functions.plot_yaw_angle_vs_downforce()
+
+
+def test_plot_yaw_angle_vs_overturning_moment(test_math_functions):
+    difference = test_math_functions.plot_yaw_angle_vs_overturning_moment()
