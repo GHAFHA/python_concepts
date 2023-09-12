@@ -1,9 +1,10 @@
-from handler import math_functions
+from handler import plot_functions
 import pytest
 
 @pytest.fixture
 def test_math_functions():
 
-    return math_functions(
-        file_path="data/aerodata.csv"
+    return plot_functions(
+        file_path1="data/aerodata.csv",
+        file_path2="data/aerodata2.csv"
     )
