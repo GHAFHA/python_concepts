@@ -98,10 +98,36 @@ class plot_functions:
                 pass
 
         def plot_yaw_angle_vs_downforce(self) -> None:
-                pass
+
+                yaw_angle_vs_downforce = pd.DataFrame(columns=["Yaw Angle", "Downforce"])
+                yaw_angle_increment = 5
+                iteration = 0
+                for i in range(0, 1):
+                        for j in range(0, 65):
+                                yaw_angle = np.round(j * yaw_angle_increment, 5)
+                                yaw_angle_vs_downforce.loc[iteration, "Yaw Angle"] = yaw_angle
+                                yaw_angle_vs_downforce.loc[iteration, "Downforce"] = self.aeromap_df.loc[j, "Raw Downforce"]
+                                iteration += 1
+                
+                fig = px.scatter(yaw_angle_vs_downforce, x="Yaw Angle", y="Downforce")
+                fig.show()
+                yaw_angle_vs_downforce.to_csv("data/Yaw_Angle_vs_Downforce.csv", index=False)
 
         def plot_yaw_angle_vs_overturning_moment(self) -> None:
-                pass
+
+                yaw_angle_vs_downforce = pd.DataFrame(columns=["Yaw Angle", "Overturning Moment"])
+                yaw_angle_increment = 5
+                iteration = 0
+                for i in range(0, 1):
+                        for j in range(0, 1):
+                                yaw_angle = np.round(j * yaw_angle_increment, 5)
+                                yaw_angle_vs_downforce.loc[iteration, "Yaw Angle"] = yaw_angle
+                                yaw_angle_vs_downforce.loc[iteration, "Overturning Moment"] = self.aeromap2_df.loc[j, "Overturning Moment"]
+                                iteration += 1
+                
+                fig = px.scatter(yaw_angle_vs_downforce, x="Yaw Angle", y="Overturning Moment")
+                fig.show()
+                yaw_angle_vs_downforce.to_csv("data/Yaw_Angle_vs_Downforce.csv", index=False)
         
         def plot_crosswind_vs_front_axle_downforce(self) -> None:
                 pass
