@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import matplotlib
 from typing import Final
 
@@ -92,10 +94,36 @@ class plot_functions:
 
 
         def plot_rear_front_ride_height_vs_cla(self) -> None:
-                pass
+                trace1 = go.Scatter(
+                        x=self.aeromap_df['Front Rideheight'],
+                        y=self.aeromap_df['ClA'],
+                        name='Front Rideheight vs ClA',
+                        mode='markers'
+                )
 
-        def compare_min_max_mean(self) -> None:
-                pass
+                trace2 = go.Scatter(
+                        x=self.aeromap_df['Rear Rideheight'],
+                        y=self.aeromap_df['ClA'],
+                        name='Rear Rideheight vs ClA',
+                        mode='markers'
+                )
+
+                fig = make_subplots()
+                fig.add_trace(trace1)
+                fig.add_trace(trace2)
+                fig.show()
+
+        def compare_min_max_mean(self) -> dict:
+                df = self.calculate_min_max_mean()
+                minComp = df.loc['Raw Downforce', 'Minimum'] - df.loc['ClA', 'Minimum']
+                meanComp = df.loc['Raw Downforce', 'Maximum'] - df.loc['ClA', 'Maximum']
+                maxComp = df.loc['Raw Downforce', 'Mean'] - df.loc['ClA', 'Mean']
+                compared = {
+                        'Minimum': minComp,
+                        'Maximum': maxComp,
+                        'Mean': meanComp
+                }
+                return compared
 
         def plot_yaw_angle_vs_downforce(self) -> None:
 
@@ -114,7 +142,6 @@ class plot_functions:
                 yaw_angle_vs_downforce.to_csv("data/Yaw_Angle_vs_Downforce.csv", index=False)
 
         def plot_yaw_angle_vs_overturning_moment(self) -> None:
-
                 yaw_angle_vs_downforce = pd.DataFrame(columns=["Yaw Angle", "Overturning Moment"])
                 yaw_angle_increment = 5
                 iteration = 0
@@ -129,8 +156,25 @@ class plot_functions:
                 fig.show()
                 yaw_angle_vs_downforce.to_csv("data/Yaw_Angle_vs_Downforce.csv", index=False)
         
-        def plot_crosswind_vs_front_axle_downforce(self) -> None:
-                pass
+        def plotCrosswindVSFrontRearAxleDownforce(self) -> None:
+                trace1 = go.Scatter(
+                        x=self.aeromap_df['Front Rideheight'],
+                        y=self.aeromap_df['ClA'],
+                        name='Crosswind vs Front Axle',
+                        mode='markers'
+                )
+
+                trace2 = go.Scatter(
+                        x=self.aeromap_df['Rear Rideheight'],
+                        y=self.aeromap_df['ClA'],
+                        name='Crosswind vs Rear Axle',
+                        mode='markers'
+                )
+
+                fig = make_subplots()
+                fig.add_trace(trace1)
+                fig.add_trace(trace2)
+                fig.show()
 
         def plot_crosswind_vs_rear_axle_downforce(self) -> None:
                 pass
